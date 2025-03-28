@@ -2618,7 +2618,7 @@ figcaption {
   padding-right: 100px;
   display: flex;
   position: absolute;
-  top: 56%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -2656,6 +2656,7 @@ figcaption {
   border-left: 4px solid var(--primary);
   color: #000;
   width: 55%;
+  max-width: 160px;
   height: 100%;
   position: absolute;
   top: 0;
@@ -2703,6 +2704,7 @@ figcaption {
   font-family: Gilroy, Arial, sans-serif;
   font-size: 55px;
   font-weight: 700;
+  transition: 100ms all ease;
 }
 
 .heading-track_item-num.heading-track_item-num_active {
@@ -2724,12 +2726,30 @@ figcaption {
 }
 
 .header-wrapper {
-  background-image: url("https://cdn.prod.website-files.com/67c2dfa05fe50e95ef04d174/67d2f7f98493a0ba9a591fc2_flag-6913477_1920.jpg");
-  background-position: 50%;
-  background-size: cover;
   width: 100%;
   max-width: 1800px;
   height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.header-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://cdn.prod.website-files.com/67c2dfa05fe50e95ef04d174/67d2f7f98493a0ba9a591fc2_flag-6913477_1920.jpg");
+  background-position: 50%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.header-wrapper.changed::before {
+  opacity: 1;
 }
 
 .header-track-wrapper {
@@ -3934,6 +3954,11 @@ figcaption {
 .header-track-item-link {
   position: absolute;
   inset: 0%;
+  cursor: pointer;
+  transition: 100ms all ease;
+  &:hover{
+    background-color: #22222227;
+  }
 }
 
 .privacy-policy {
@@ -5177,3 +5202,27 @@ figcaption {
     opacity: 1; /* Krajnja opacnost */
   }
 }/*# sourceMappingURL=style.css.map */
+
+
+.header-wrapper {
+  background-image: url("https://cdn.prod.website-files.com/67c2dfa05fe50e95ef04d22e/67d9abc0687ade4534c1840e_heading1.webp");
+  background-position: 50%;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  transition: background-image 0.8s cubic-bezier(0.39, 0.575, 0.565, 1);; /* Animacija za pozadinsku sliku */
+}
+
+/* Opcionalna klasa za dodatnu animaciju */
+.header-wrapper.image-change-animation {
+  animation: fadeInImage 1s cubic-bezier(0.39, 0.575, 0.565, 1);;
+}
+
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -2735,6 +2735,7 @@ figcaption {
     position: absolute;
     top: 0;
     left: 0;
+    max-width: 160px;
 }
 
 .header-project-track {
@@ -2778,11 +2779,13 @@ figcaption {
     font-family: Gilroy, Arial, sans-serif;
     font-size: 55px;
     font-weight: 700;
+    
 }
 
 .heading-track_item-num.heading-track_item-num_active {
     color: var(--primary);
     font-size: 55px;
+    
 }
 
 .heading-track_item-text {
@@ -4029,7 +4032,14 @@ figcaption {
 .header-track-item-link {
     position: absolute;
     inset: 0%;
+    cursor: pointer;
+    transition: 200ms all ease;
+    &:hover{
+        background-color: #2222221e;
+    }
 }
+
+
 
 .privacy-policy {
     padding-right: var(--section-padding-desktop);
@@ -4448,7 +4458,6 @@ figcaption {
     .heading-track_item-num,
     .heading-track_item-num.heading-track_item-num_active {
         font-size: 48px;
-        transition: 200ms background-color ease-in;
     }
 
     .heading-track_item-text {
