@@ -86,25 +86,66 @@ const setId = (id) => {
 
 
 window.addEventListener("scroll", () => {
-    if (pageYOffset > countersContainer.offsetTop - countersContainer.offsetHeight - 500 && !counterActivated) {
-        counters.forEach(counter => {
-            //counter.innerText = 0;
-            let count = 0;
-            let target = parseInt(counter.innerText);
-            const updateCount = () => {
-                console.log("target: " + target)
+    if (pageYOffset > countersContainer.offsetTop - countersContainer.offsetHeight - 700 && !counterActivated) {
+        let count12Counter = 0;
+        let counter12Delay = 90;
 
-                if (count < target) {
-                    count++;
-                    counter.innerText = count;
-                    setTimeout(updateCount, counter>25?125:55);
-                } else {
-                    count.innerText = target;
-                }
+        function updateCount12() {
+            count12Counter++;
+        
+            if (count12Counter <= counterTargets[0]) {
+                counters[0].innerText = count12Counter;
+            } else {
+                counters[0].innerText = counterTargets[0];
             }
-            updateCount();
-            counterActivated = true;
+        
+            if (count12Counter < counterTargets[1]) {
+                counters[1].innerText = count12Counter;
+            } else {
+                counters[1].innerText = counterTargets[1];
+            }
+            
+            if(count12Counter > 10) counter12Delay = 130;
+            if(count12Counter > 16) counter12Delay = 270;
+            
 
-        })
+            // Nastavlja se sa setTimeout samo ako brojač nije dostigao ciljeve
+            if (count12Counter <= counterTargets[0] || count12Counter < counterTargets[1]) {
+                setTimeout(updateCount12, counter12Delay); // Rekurzivni poziv sa delay-em od 100ms
+            }
+        }
+        
+        // Početni poziv za count12Counter
+        setTimeout(updateCount12, counter12Delay);
+
+
+        let count3Counter = 0;
+        let delay = 10;
+
+        function updateCounter() {
+            count3Counter++;
+
+            if (count3Counter <= counterTargets[2]) {
+                counters[2].innerText = count3Counter;
+            } else {
+                counters[2].innerText = counterTargets[2];
+                return; // Prekida rekurziju kada se dostigne cilj
+            }
+
+            // Promena delay vrednosti na osnovu broja
+            if (count3Counter > 77) delay = 40;
+            if (count3Counter > 85) delay = 80;
+            if (count3Counter > 93) delay = 110;
+            if (count3Counter > 97) delay = 270;
+
+            // Poziva se ponovo sa delay vrednošću
+            setTimeout(updateCounter, delay);
+        }
+
+        // Pokreće početnu funkciju
+        setTimeout(updateCounter, delay);
+
+        counterActivated = true;
+
     }
 })
