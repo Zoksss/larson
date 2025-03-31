@@ -1,3 +1,9 @@
+// ToDo
+
+// Header yellow border jumping on mobile [ ]
+
+
+
 let headerPrev = document.querySelector("#headerPrev");
 let headerNext = document.querySelector("#headerNext");
 
@@ -134,7 +140,7 @@ const setId = (id) => {
 
 
 window.addEventListener("scroll", () => {
-    if (pageYOffset > countersContainer.offsetTop - countersContainer.offsetHeight - 700 && !counterActivated) {
+    if (pageYOffset > countersContainer.offsetTop - countersContainer.offsetHeight - (window.innerWidth>500?700:150) && !counterActivated) {
         let count12Counter = 0;
         let counter12Delay = 90;
 
