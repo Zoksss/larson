@@ -2733,7 +2733,7 @@ figcaption {
   position: relative;
 }
 
-.header-wrapper::before {
+.header-background-image {
   content: "";
   position: absolute;
   top: 0;
@@ -2742,10 +2742,20 @@ figcaption {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-image: url("https://cdn.prod.website-files.com/67c2dfa05fe50e95ef04d174/67d2f7f98493a0ba9a591fc2_flag-6913477_1920.jpg");
-  background-position: 50%;
+  object-fit: cover;  /* Ovim postavljamo da slika bude proporcionalno skalirana */
+  z-index: -1;  /* Ovaj z-index osigurava da slika bude iza sadržaja */
   opacity: 0;
+  transition: opacity 1s ease-in-out;  /* Opciono: animacija za postepeno pojavljivanje slike */
+}
+
+/* Opcionalno: Dodajte animaciju za sliku da se postepeno pojavljuje */
+.header-wrapper img {
+  opacity: 1;
   transition: opacity 1s ease-in-out;
+}
+
+.header-wrapper:hover .header-background-image {
+  opacity: 1;  /* Ako želite da slika postane vidljiva pri hover-u */
 }
 
 .header-wrapper.changed::before {
@@ -3061,6 +3071,7 @@ figcaption {
   font-family: Gilroy, Arial, sans-serif;
   font-weight: 700;
   transition: all 0.15s;
+  cursor: pointer;
 }
 
 .latest-projects-filter-link:hover {
@@ -3086,6 +3097,7 @@ figcaption {
   margin-top: 60px;
   margin-bottom: 60px;
   display: flex;
+  min-height: 400px;
 }
 
 .latest-project-item {
@@ -4000,9 +4012,6 @@ figcaption {
   }
   .testsec {
     background-color: var(--white);
-  }
-  .header-wrapper {
-    background-image: url("https://cdn.prod.website-files.com/67c2dfa05fe50e95ef04d174/67d2f7f98493a0ba9a591fc2_flag-6913477_1920.jpg");
   }
   .header-track-btn {
     color: var(--gray-light);
@@ -5203,26 +5212,3 @@ figcaption {
   }
 }/*# sourceMappingURL=style.css.map */
 
-
-.header-wrapper {
-  background-image: url("https://cdn.prod.website-files.com/67c2dfa05fe50e95ef04d22e/67d9abc0687ade4534c1840e_heading1.webp");
-  background-position: 50%;
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
-  transition: background-image 0.8s cubic-bezier(0.39, 0.575, 0.565, 1);; /* Animacija za pozadinsku sliku */
-}
-
-/* Opcionalna klasa za dodatnu animaciju */
-.header-wrapper.image-change-animation {
-  animation: fadeInImage 1s cubic-bezier(0.39, 0.575, 0.565, 1);;
-}
-
-@keyframes fadeInImage {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
