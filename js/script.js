@@ -1,6 +1,8 @@
 let headerPrev = document.querySelector("#headerPrev");
 let headerNext = document.querySelector("#headerNext");
 
+let headerSeeProjectLink = document.querySelector("#headerSeeProject");
+
 
 let filterAll = document.querySelector("#filterAll");
 let filterBuilding = document.querySelector("#filterBuilding");
@@ -21,9 +23,29 @@ let counterTargets = [20, 7, 100];
 
 
 let currentId = 1; // 1,2,3
+let currentImageId = 1;
 
 
 let headingProjectIds = [0, 4, 3] // id from projects.js array 0-7
+
+
+let autoChangeInterval; // Držimo referencu na interval kako bismo mogli da ga zaustavimo ako zatreba
+let autoChangeDelay = 4500; // ms
+
+const startAutoChange = () => {
+    // Pokrećemo interval koji će pozivati promene svakih 10 sekundi
+    autoChangeInterval = setInterval(() => {
+        if (currentId >= 3) currentId = 1;
+        else currentId++;
+
+        updateHeaderIndexNum();
+        updateText();
+        updateBackgroundImage(currentId);
+    }, autoChangeDelay); // 10000 ms = 10 sekundi
+};
+
+startAutoChange();
+
 
 
 const updateHeaderIndexNum = () => {
@@ -33,50 +55,79 @@ const updateHeaderIndexNum = () => {
     headerIndexNum[currentId - 1].classList.add("heading-track_item-num_active");
 }
 
+const updateBackgroundImage = (newImageId) => {
+    const images = document.querySelectorAll('.header-background-image'); // Sve slike
+    const currentImage = document.getElementById(`headerBackgroundImage${currentImageId}`);
+    const newImage = document.getElementById(`headerBackgroundImage${newImageId}`);
+
+    const tl = gsap.timeline();
+
+    // Trik je da odmah postavimo novu sliku da bude vidljiva (opacity: 1)
+    // Dok trenutna slika fade-outuje
+    tl.to(currentImage, {
+        opacity: 0,
+        duration: 0, // Trajanje fade-out animacije
+        ease: "power2.inOut", // Easing za glatke prelaze
+    })
+        .set(newImage, { opacity: 1 }) // Ova slika postaje odmah vidljiva
+        .to(newImage, {
+            opacity: 1, // Ova slika ostaje 100% vidljiva
+            duration: 0, // Nema animacije za novu sliku, odmah je postavljena
+        });
+
+    // Ažuriraj ID za trenutnu sliku
+    currentImageId = newImageId;
+};
+
 const updateText = () => {
     let newText = projectsJson[headingProjectIds[currentId - 1]]["Name"].split(" ");
     let textSpan = `<span class="text-span">${newText[1]}</span>`;
     newText[1] = textSpan;
 
-    // Promena teksta
     for (let i = 0; i < 3; i++) {
         if (headingText[i]) {
-            console.log(headingText[i]);
-            // Uklanjanje animacije kako bi je ponovo pokrenuli
             headingText[i].classList.remove(`text-anim${i + 1}`);
 
-            // Moramo da koristimo "reflow" da bi animacija ponovo počela
-            void headingText[i].offsetWidth; // Ovo je trik za reflow (resetovanje stila)
+            void headingText[i].offsetWidth;
 
-            // Dodavanje nove animacije
             headingText[i].classList.add(`text-anim${i + 1}`);
-
-            // Promena sadržaja
             headingText[i].innerHTML = newText[i];
-        } else {
-            console.log(`Element na poziciji ${i} nije pronađen!`);
         }
     }
 
-}
+    headerSeeProjectLink.href = `/larson/projects/` + projectsJson[headingProjectIds[currentId - 1]]["Slug"]
+};
 
+// Event listener za sledeću sliku
 headerNext.addEventListener("click", () => {
     if (currentId >= 3) currentId = 1;
     else currentId++;
-    updateHeaderIndexNum();
-    updateText();
-})
 
+    updateHeaderIndexNum();
+    updateText(); // Ažuriraj tekst (ako je potrebno)
+    updateBackgroundImage(currentId); // Ažuriraj pozadinsku sliku
+
+    clearInterval(autoChangeInterval);  // Zaustavljamo trenutni interval
+    startAutoChange();  // Pokrećemo interval ponovo
+});
+
+// Event listener za prethodnu sliku
 headerPrev.addEventListener("click", () => {
     if (currentId <= 1) currentId = 3;
     else currentId--;
+
     updateHeaderIndexNum();
-    updateText();
-})
+    updateText(); // Ažuriraj tekst (ako je potrebno)
+    updateBackgroundImage(currentId); // Ažuriraj pozadinsku sliku
+
+    clearInterval(autoChangeInterval);  // Zaustavljamo trenutni interval
+    startAutoChange();  // Pokrećemo interval ponovo
+});
 
 const setId = (id) => {
     currentId = id;
     updateHeaderIndexNum();
+    updateImage(); // Pozivanje funkcije za promenu slike
     updateText();
 }
 
