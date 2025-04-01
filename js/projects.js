@@ -100,7 +100,7 @@ const projectsJson = [
         "headingId": 3
     },
     {
-        "Name": "Mountain Crest Lodge",
+        "Name": "Mount Crest Lodge",
         "Slug": "mountain-crest-lodge",
         "Collection ID": "67d5472987c0e5be3adfcdfc",
         "Locale ID": "67c2dfa05fe50e95ef04d200",

@@ -132,9 +132,11 @@ headerPrev.addEventListener("click", () => {
 
 const setId = (id) => {
     currentId = id;
+    updateBackgroundImage(currentId); // Ažuriraj pozadinsku sliku
     updateHeaderIndexNum();
-    updateImage(); // Pozivanje funkcije za promenu slike
     updateText();
+    clearInterval(autoChangeInterval);  // Zaustavljamo trenutni interval
+    startAutoChange();  // Pokrećemo interval ponovo
 }
 
 

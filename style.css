@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -232,7 +233,9 @@ th {
 }
 
 .w-icon-nav-menu:before {
-  content: "î˜‚";
+  content: "\f0c9"; /* Ovo je Unicode za hamburger meni */
+  font-family: "Font Awesome 5 Free", sans-serif; /* Uveri se da koristiš Font Awesome font */
+  font-weight:600; /* Ne zaboravi na podešavanje težine fonta */
 }
 
 .w-icon-arrow-down:before,
@@ -2202,7 +2205,7 @@ p {
 }
 
 a {
-  color: var(--color--c1\<deleted\|variable-d943262b-589c-36c6-eb41-91d5a9d1615e\>);
+  color: var(--black);
   text-decoration: none;
 }
 
@@ -3251,6 +3254,11 @@ figcaption {
   border: 2px none var(--gray-light);
   margin-top: 0;
   position: relative;
+  color: var(--black)
+}
+
+.footer a, .footer p{
+  color: var(--black)
 }
 
 .footer-wrapper {
@@ -4002,9 +4010,7 @@ figcaption {
   .p.testamonial-desc {
     max-width: 440px;
   }
-  .p.nav-cred {
-    margin-top: 30px;
-  }
+
   .header-trakc_item {
     position: relative;
   }
@@ -4339,7 +4345,6 @@ figcaption {
   }
   .nav-links {
     background-color: var(--white);
-    margin-top: 15px;
   }
   .nav-link {
     flex-flow: column;
