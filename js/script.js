@@ -62,7 +62,6 @@ const updateHeaderIndexNum = () => {
 }
 
 const updateBackgroundImage = (newImageId) => {
-    const images = document.querySelectorAll('.header-background-image'); // Sve slike
     const currentImage = document.getElementById(`headerBackgroundImage${currentImageId}`);
     const newImage = document.getElementById(`headerBackgroundImage${newImageId}`);
 

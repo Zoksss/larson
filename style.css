@@ -4552,6 +4552,9 @@ figcaption {
   }
 }
 @media screen and (max-width: 767px) {
+  .section-number{
+    font-size: 200px;
+  }
   h1 {
     letter-spacing: 0;
     font-size: 2.5rem;
@@ -4955,6 +4958,9 @@ figcaption {
     width: 50%;
     bottom: -20px;
     right: 0%;
+  }
+  .section-number{
+    font-size: 200px;
   }
   .stats-item {
     grid-column-gap: 4px;
